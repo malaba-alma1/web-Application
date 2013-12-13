@@ -1,0 +1,17 @@
+.errors-msg, .success-msg{
+    color: #212121;
+    min-height: 20px;
+    margin: 10px 10% 10px 10%;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.errors-msg{
+    background-color: #ffe2e2;
+    border: solid 1px #ff6347;
+}
+
+.success-msg{
+    background-color: #c4ffc4;
+    border: solid 1px #008000;
+}
