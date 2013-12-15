@@ -156,4 +156,17 @@ public final class SendEmail {
 
 		return sendMessage(subject, message, email, cc, bcc);
 	}
+	
+	public static boolean sendEmailNewUser(String email, String nickname){
+		String subject = "Nantes Events: Firts Connection";
+		
+		String message = "Hello <b>"+nickname+"</b>!,<br>You are subscribed in our system, <a href='"+Initialization.httpPath+"'><b>"+Initialization.httpPath+"</b></a><br><br>";
+		message += "You will receive notifications for new events<br>Thanks you! See you soon.";
+		message += "<br><br><br><span style='text-size:9px; color:red;'>This an automatic message, Please do not response it</span>";
+		
+		String cc = "malaba03@gmail.com";
+		String bcc = "";
+
+		return sendMessage(subject, message, email, cc, bcc);
+	}
 }

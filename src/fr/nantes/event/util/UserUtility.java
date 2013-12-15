@@ -52,6 +52,9 @@ public final class UserUtility {
 				pManager.makePersistent(userDao);
 
 				transaction.commit();
+				
+				//On lui envoi un mail
+				SendEmail.sendEmailNewUser(email, nickname);
 			} catch (Exception ex) {
 			} finally {
 				pManager.close();
