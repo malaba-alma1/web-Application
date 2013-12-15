@@ -1,3 +1,4 @@
+<%@page import="fr.nantes.event.util.EventUtility"%>
 <%@page import="fr.nantes.event.dao.EventDao"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -7,7 +8,7 @@
 String key = request.getParameter("key");
 System.out.println("KEY: "+key);
 //get event by key from appi
-EventDao event = Utility.getEventById(key);
+EventDao event = EventUtility.getEventById(key);
 
 if(event != null){ %>
 <jsp:setProperty property="sport" value="<%=event.getSport()%>" name="Event"/>
@@ -98,7 +99,7 @@ if(event != null){ %>
 							<%
 								if (UserServiceFactory.getUserService().getCurrentUser() == null) {%>
 									<img alt="subscribe ico" title="Subscription" src="/images/subscribe1.png" width="60" height="30" style="cursor: pointer;" onclick="alert('You must be log in to subscribe');">
-								<%} else if(Utility.isSubcribed(key, UserServiceFactory.getUserService().getCurrentUser().getEmail())){%>
+								<%} else if(EventUtility.isSubcribed(key, UserServiceFactory.getUserService().getCurrentUser().getEmail())){%>
 									<div class="block" id="thoughtbot"><button onclick="window.location.href='/event/unsubscribe.do?key=<%=key%>'" style="cursor: pointer;font-size: 13px; width: 100px; height: 25px; padding: 5px 0 6px 0;">Unsubscribe</button></div>
 							<%}else{%>
 									<img alt="subscribe ico" title="Subscription" src="/images/subscribe1.png" width="60" height="30" style="cursor: pointer;" onclick="window.location.href='/event/subscribe.do?key=<%=key%>'">

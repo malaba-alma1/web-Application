@@ -1,5 +1,8 @@
 <div id="templatemo_footer">
-	Copyright © 2013-2014 <b>BA Mamadou Lamine - E13D192L</b> MASTER 1 - ALMA At <a href="http://univ-nantes.fr">Nantes University</a> 
+	<a href="http://univ-nantes.fr" target="_parent" style="float: left; margin-top: -5px; padding: 0px;"> <img
+		src="images/nantes-logo.svg" alt="Nantes University logo" width="100" height="30" /> 
+	</a>
+	<span style="float: left; margin-left: 40px;">Copyright © 2013-2014 <b>BA Mamadou Lamine - E13D192L</b> MASTER 1 - ALMA At <a href="http://univ-nantes.fr">Nantes University</a> </span>
 	<div class="cleaner"></div>
 </div>
 

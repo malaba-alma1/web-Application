@@ -1,3 +1,7 @@
+<%@page import="fr.nantes.event.util.EventUtility"%>
+<%@page import="java.util.Date"%>
+<%@page import="fr.nantes.event.dao.EventDao"%>
+<%@page import="java.util.List"%>
 <%@page import="com.google.appengine.api.users.UserServiceFactory"%>
 <%@page import="fr.nantes.event.util.Utility"%>
 <div class="templatemo_sidebar_top"></div>
@@ -38,7 +42,32 @@
 			</div>
 		</div>	
 	</c:if>
-
+	
+	<div class="sidebar_box">
+		<h2>Past events</h2>
+			<% 
+			List<EventDao> pastEvents = EventUtility.getPastEvents(0, 3); 
+			%>
+			<div class="sidebar_box_content">
+				<c:forEach var="event" items="<%=pastEvents%>">
+					<c:set var="key" scope="request" value="${event.id}"/>
+					<c:set var="date" scope="request" value="${event.date}"/>
+					<%
+						String keytoString = com.google.appengine.api.datastore.KeyFactory.keyToString((com.google.appengine.api.datastore.Key)request.getAttribute("key"));
+					 %>
+					<div class="news_box">
+						<h4>
+							<a href="detailsEvent.jsp?key=<%=keytoString%>">${event.name}</a>
+						</h4>
+						<p style="text-align: left;">
+							At <b><%=Utility.getDateToString((Date)request.getAttribute("date"), "MM/dd/yyyy HH:mm")%></b> <br>
+							By <b>${event.userCreated}</b><br>
+							Subcribed <b>${event.nbSubscrits}</b>
+						</p>
+					</div>
+				</c:forEach>			
+			</div>
+		</div>
 </div>
 <div class="templatemo_sidebar_bottom"></div>
 <!-- end of sidebar -->

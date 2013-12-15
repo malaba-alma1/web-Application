@@ -1,3 +1,4 @@
+<%@page import="fr.nantes.event.util.EventUtility"%>
 <%@page import="com.google.appengine.api.users.UserServiceFactory"%>
 <%@page import="fr.nantes.event.util.Utility"%>
 <%@page import="fr.nantes.event.dao.EventDao"%>
@@ -7,7 +8,7 @@ String creator = "";
 if (UserServiceFactory.getUserService().getCurrentUser() != null) {
 	creator = UserServiceFactory.getUserService().getCurrentUser().getEmail();
 }
-List<EventDao> listEvents = Utility.getListEventsBy("", "", "", "", "", creator); 
+List<EventDao> listEvents = EventUtility.getListEventsBy("", "", "", "", "", creator); 
 %>
 <h3>My Events</h3>
 						

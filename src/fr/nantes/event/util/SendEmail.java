@@ -128,6 +128,22 @@ public final class SendEmail {
 		return sendMessage(subject, message, email, cc, bcc);
 	}
 	
+	public static boolean sendEmailPormotorNewSubcribtion(String email, String key, String name, String date, String location, String userSubcribed){
+		String urlEvent = Initialization.httpPath+"/detailsEvent.jsp?key="+key;
+		
+		String subject = "Nantes Events: New subscription";
+		
+		String message = "Dear member,<br><b>Member "+userSubcribed+"</b> subscribed to your event, <a href='"+urlEvent+"'><b>"+name+"</b></a> <br><br>";
+		message += "<br>Date : "+date;
+		message += "<br>Location :"+location;
+		message += "<br><br><br><span style='text-size:9px; color:red;'>This an automatic message, Please do not response it</span>";
+		
+		String cc = "malaba03@gmail.com";
+		String bcc = "";
+
+		return sendMessage(subject, message, email, cc, bcc);
+	}
+	
 	public static boolean sendEmailNewsletter(String email){
 		String subject = "Nantes Events: newsletter subscription";
 		

@@ -1,13 +1,22 @@
+<%@page import="fr.nantes.event.util.EventUtility"%>
+<%@page import="com.google.appengine.api.users.UserServiceFactory"%>
 <div id="site_title">
-	<a href="http://www.templatemo.com/page/1" target="_parent"> <img
-		src="images/templatemo_logo.png" alt="logo" /> <span>Your
-			online shopping store</span>
+	<a href="" target="_parent"> <img
+		src="images/nantes-metropole-logo.svg" alt="Nantes University logo" width="200" height="70" /> 
+		<span>Your Geolocalised Sports events in Nantes</span>
 	</a>
 </div>
 
 <div id="shopping_cart_box">
-	<h3>Shopping Cart</h3>
-	<p>
-		Total <span>28 items</span> in your cart
+	<%
+	if (UserServiceFactory.getUserService().getCurrentUser() != null) {%>
+		Welcome<h3><%=UserServiceFactory.getUserService().getCurrentUser().getNickname()%></h3>
+	<%} else{%>
+		You're not connected
+	<%}
+	%>
+	
+	<p style="padding-top: 45px;">
+		Total <span><%=EventUtility.getNbEvents()%> event(s)</span> added
 	</p>
 </div>

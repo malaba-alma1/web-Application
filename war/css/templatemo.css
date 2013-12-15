@@ -54,13 +54,18 @@ img { margin: 0px; padding: 0px; border: none; }
 #templatemo_header {
 	clear: both;
 	width:  inherit;
-	height: 60px;
-	padding: 20px 40px
+	height: 100px;
+	padding: 10px 40px 5px 40px;
+	background:url("images/sports.png") no-repeat;
+	background-size: 100% 100%;
+	margin-top: 10px;
+	margin-bottom: 5px;
+	border-radius: 10px;
 }
 
 #templatemo_header  #site_title {
 	float: left;
-	padding-top: 15px;
+	margin-top: 40px;
 }
 
 #site_title a {
@@ -77,21 +82,20 @@ img { margin: 0px; padding: 0px; border: none; }
 
 #site_title a span {
 	display: block;
-	margin-top: 5px;
 	font-size: 14px;
 	color: #fff;
 	font-weight: bold;
 	letter-spacing: 2px;
 }
 
+#site_title img{height: 100%;}
+
 #shopping_cart_box {
 	float: right;
-	padding-top: 20px;
 	color: #CCC;
 }
 
 #shopping_cart_box h3 {
-	margin: 0 0 5px 0;
 	color: #fff;
 	font-size: 14px;
 	font-weight: bold;
@@ -110,8 +114,10 @@ img { margin: 0px; padding: 0px; border: none; }
 #templatemo_menu {
 	clear: both;
 	width: inherit;
-	height: 35px;
-	background: url("images/templatemo_menubar.png") 0 -35px no-repeat;
+	/*height: 35px;
+	background: url("images/templatemo_menubar.png") 0 -35px no-repeat;*/
+	height: 70px;
+	background: url("images/templatemo_menubar.png") no-repeat;
 	background-size: 100%;
 }
 

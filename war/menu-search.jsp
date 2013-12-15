@@ -1,7 +1,10 @@
 <%@page import="com.google.appengine.api.users.User"%>
 <%@page import="com.google.appengine.api.users.UserServiceFactory"%>
 <%@page import="com.google.appengine.api.users.UserService"%>
-<ul>
+<div id="search_box" style="font-size: 13px; padding-top: 6px;">
+  Realized By <b>BA Mamadou Lamine - E13D192L</b> MASTER 1 Computer Sciences / ALMA (Nantes University)
+</div>
+<ul style="margin-top: -6px;">
 	<li><a href="/" class="current">Home</a></li>
 	<!--li><a href="/listEvents.jsp" target="_parent">Events</a></li-->
 	<li><a href="/members.jsp">Members</a></li>

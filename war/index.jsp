@@ -23,7 +23,7 @@ String creator = ""; //request.getSession().getAttribute("creator") !=null ? req
 request.getSession().removeAttribute("date");
 request.getSession().removeAttribute("sport");
 //out.println("DATA:"+date+" SPORT:"+sport);
-List<EventDao> listEvents = Utility.getUpComingEvents("", sport, date, nom, stadium, creator); 
+List<EventDao> listEvents = EventUtility.getUpComingEvents("", sport, date, nom, stadium, creator); 
 %>
 <c:set var="sport_frm" scope="page" value="<%=sport%>"/>
 <c:set var="date" scope="page" value="<%=date%>"/>
@@ -113,7 +113,7 @@ marker.setMap(map);
 
 var w_main = $("#templatemo_content").width();
 	//var h_main = $("#content_middle").height();
-$("#map-canvas").width(w_main+"px").height("300");
+$("#map-canvas").width(w_main+"px").height("300").css("border-radius", "10px");
 }
  	window.onload = initialize;
 </script>
@@ -184,7 +184,7 @@ $("#map-canvas").width(w_main+"px").height("300");
 										<%
 										if (UserServiceFactory.getUserService().getCurrentUser() == null) {%>
 											<img alt="subscribe ico" title="Subscription" src="/images/subscribe1.png" width="60" height="30" style="cursor: pointer;" onclick="alert('You must be log in to subscribe');">
-										<%} else if(Utility.isSubcribed(keytoString, UserServiceFactory.getUserService().getCurrentUser().getEmail())){%>
+										<%} else if(EventUtility.isSubcribed(keytoString, UserServiceFactory.getUserService().getCurrentUser().getEmail())){%>
 											<b>subcribed</b>
 									<%}else{%>
 											<img alt="subscribe ico" title="Subscription" src="/images/subscribe1.png" width="60" height="30" style="cursor: pointer;" onclick="window.location.href='/event/subscribe.do?key=<%=keytoString%>'">

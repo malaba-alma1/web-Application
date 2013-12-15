@@ -1,3 +1,4 @@
+<%@page import="fr.nantes.event.util.EventUtility"%>
 <%@page import="java.util.Date"%>
 <%@page import="fr.nantes.event.util.Utility"%>
 <%@page import="fr.nantes.event.dao.EventDao"%>
@@ -9,9 +10,9 @@
 	<div class="sidebar_box">
 
 		<h2>Last events added</h2>
-<% 
-List<EventDao> lastEvents = Utility.getLastEvents(0, 3); 
-%>
+		<% 
+		List<EventDao> lastEvents = EventUtility.getLastEvents(0, 3); 
+		%>
 		<div class="sidebar_box_content">
 			<c:forEach var="event" items="<%=lastEvents%>">
 				<c:set var="key" scope="request" value="${event.id}"/>

@@ -1,3 +1,4 @@
+<%@page import="fr.nantes.event.util.EventUtility"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="fr.nantes.event.dao.GuestDao"%>
 <%@page import="com.google.appengine.api.users.UserServiceFactory"%>
@@ -11,10 +12,10 @@ if (UserServiceFactory.getUserService().getCurrentUser() != null) {
 	userMail = UserServiceFactory.getUserService().getCurrentUser().getEmail();
 	
 	//Get all events subcribed
-	List<GuestDao> subcriptions = Utility.getSubcriptions(userMail, "", "");
+	List<GuestDao> subcriptions = EventUtility.getSubcriptions(userMail, "", "");
 	for(GuestDao guest : subcriptions){
 		String evenId = guest.getKeyEvent();
-		EventDao event = Utility.getEventById(evenId);
+		EventDao event = EventUtility.getEventById(evenId);
 		listEvents.add(event);
 	}
 }

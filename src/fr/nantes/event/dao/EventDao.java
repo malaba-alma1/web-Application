@@ -48,6 +48,8 @@ public class EventDao {
 	@Persistent
 	private String nbSubscrits = "";
 	
+	@Persistent
+	private Date createdAt = new Date();
 	
 	 /**
 	 * @param key
@@ -61,10 +63,11 @@ public class EventDao {
 	 * @param maxPeoples
 	 * @param nbSubscrits
 	 * @param stadium
+	 * @param createdAt
 	 */
 	public EventDao(String sport, Date date, String name, String description, String stadium, String address,
 			String longitude, String latitude, String userCreated,
-			String maxPeoples, String nbSubscrits) {
+			String maxPeoples, String nbSubscrits, Date createdAt) {
 		this.sport = sport;
 		this.date = date;
 		this.name = name;
@@ -76,6 +79,7 @@ public class EventDao {
 		this.userCreated = userCreated;
 		this.maxPeoples = maxPeoples;
 		this.nbSubscrits = nbSubscrits;
+		this.createdAt = createdAt;
 	}
 	
 	/**
@@ -222,6 +226,20 @@ public class EventDao {
 	 */
 	public void setNbSubscrits(String nbSubscrits) {
 		this.nbSubscrits = nbSubscrits;
+	}
+
+	/**
+	 * @return the createdAt
+	 */
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	/**
+	 * @param createdAt the createdAt to set
+	 */
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
 	}
 }
 

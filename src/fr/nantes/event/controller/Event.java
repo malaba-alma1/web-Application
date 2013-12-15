@@ -5,20 +5,20 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.google.appengine.api.datastore.KeyFactory;
-
 import fr.nantes.event.bean.EventBean;
 import fr.nantes.event.dao.EventDao;
 import fr.nantes.event.dao.GuestDao;
+import fr.nantes.event.dao.UserDao;
+import fr.nantes.event.util.EventUtility;
 import fr.nantes.event.util.PMF;
 import fr.nantes.event.util.SendEmail;
+import fr.nantes.event.util.UserUtility;
 import fr.nantes.event.util.Util;
 import fr.nantes.event.util.Utility;
 import fr.nantes.event.util.XmlParser;
@@ -88,7 +88,7 @@ public class Event extends Controller{
 				String latitude = mapStadium.get("latitude").toString(); 
 				String address = mapStadium.get("address").toString(); 
 
-				String userCreated = this.user.getNickname();
+				String userCreated = this.user.getEmail();
 				
 				// Saving event
 				pManager = PMF.get().getPersistenceManager();
@@ -96,7 +96,7 @@ public class Event extends Controller{
 				
 				transaction.begin();
 				Date dateEvent = Utility.getDateFromString(date+":00", "MM/dd/yyyy HH:mm:ss");
-				EventDao event = new EventDao(sport, dateEvent, name, description, nameStadium, address, longitude, latitude, userCreated, maxPeoples, "0");
+				EventDao event = new EventDao(sport, dateEvent, name, description, nameStadium, address, longitude, latitude, userCreated, maxPeoples, "0", new Date());
 				
 				event = pManager.makePersistent(event);
 				
@@ -149,7 +149,7 @@ public class Event extends Controller{
 			
 			PersistenceManager pManager = null;
 			try {
-				EventDao event = Utility.getEventById(key);
+				EventDao event = EventUtility.getEventById(key);
 				String date = Utility.getDateToString(event.getDate(), "MM/dd/yyyy HH:MM");
 				// Saving event
 				pManager = PMF.get().getPersistenceManager();
@@ -169,6 +169,11 @@ public class Event extends Controller{
 				//SendMail to users member
 				
 				SendEmail.sendEmailSubcribtion(userEmail, key, event.getName(), date, event.getAddress(), event.getStadium(), event.getUserCreated(), event.getSport());
+				
+				//Senmail to the promotor
+				UserDao creator = UserUtility.getUserByEmail(event.getUserCreated());
+				SendEmail.sendEmailPormotorNewSubcribtion(creator.getEmail(), key, event.getName(), date, event.getAddress(), userEmail);
+				
 				this.view += "&sub=SUCCESS";
 			
 			} finally  {
@@ -182,19 +187,17 @@ public class Event extends Controller{
 	
 	public void unsubscribe(){
 		String key = request.getParameter("key");
-		System.out.println("unsubscribe KEY: "+key);
 		
 		this.view = "detailsEvent.jsp?key="+key;
 		
 		if(this.user != null){
 			String userEmail = this.user.getEmail();
-			
-			long deleted = Utility.deleteUserSubcription(userEmail, key);
+			long deleted = EventUtility.deleteUserSubcription(userEmail, key);
 			
 			if(deleted > 0){
 				PersistenceManager pManager = null;
 				try {
-					EventDao event = Utility.getEventById(key);
+					EventDao event = EventUtility.getEventById(key);
 					// Saving event
 					pManager = PMF.get().getPersistenceManager();
 					
