@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -108,6 +109,24 @@ public final class Utility {
 		allSports.put("wrestling", "Wrestling");
 		
 		return allSports;
+	}
+	
+	public static String getOptionsStadiums(String checked){
+		String options = "<option value=''>Choose a stadium</option>";
+		SortedMap<String, Map<String, String>> stadiums = XmlParser.instance.getSortedStadiumFromOpenData();
+		if(!stadiums.isEmpty()){
+			for (String value : stadiums.keySet()) {
+				// utilise ici hashMap.get(mapKey) pour accéder aux valeurs
+				Map<String, String> data = stadiums.get(value);
+				String label = data.get("name");
+				String isChecked = "";
+				if(data.get("name").equalsIgnoreCase(checked))
+					isChecked = " selected='true'";
+				
+				options += "<option value='"+value+"'"+isChecked+">"+label+"</option>";
+			}
+		}
+		return options;
 	}
 	
 }

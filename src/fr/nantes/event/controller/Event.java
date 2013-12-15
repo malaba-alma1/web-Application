@@ -5,12 +5,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import com.google.appengine.api.datastore.KeyFactory;
+
 import fr.nantes.event.bean.EventBean;
 import fr.nantes.event.dao.EventDao;
 import fr.nantes.event.dao.GuestDao;
@@ -56,7 +61,7 @@ public class Event extends Controller{
 		String stadium = request.getParameter("stadium");
 		String maxPeoples = request.getParameter("maxPeoples");
 		
-		ArrayList<Map<String, String>> stadiums = new ArrayList<Map<String,String>>();
+		SortedMap<String, Map<String, String>> stadiums = new TreeMap<String, Map<String,String>>();
 		Map<String, String> mapStadium = new HashMap<String, String>();
 		String nameStadium = "";
 		
@@ -68,10 +73,11 @@ public class Event extends Controller{
 		if(stadium.length()==0) errorMsg += "Please choose a stadium.<br>";
 		else{
 			//Get all stadium from Open data nantes
-			stadiums = XmlParser.instance.getStadiumFromOpenData("http://data.nantes.fr/api/publication/24440040400129_NM_NM_00024/LOC_EQUIPUB_SPORT_NM_STBL/content/?format=xml");
+			stadiums = XmlParser.instance.getSortedStadiumFromOpenData();
+			mapStadium = stadiums.get(stadium);
 			
-			int index = Util.convertToInt(stadium);
-			mapStadium = stadiums.get(index);
+			//System.out.println("size"+stadiums.size());
+			//System.out.println("choix:"+stadium);
 			nameStadium = mapStadium.get("name").toString(); 
 		}
 		
@@ -171,8 +177,8 @@ public class Event extends Controller{
 				SendEmail.sendEmailSubcribtion(userEmail, key, event.getName(), date, event.getAddress(), event.getStadium(), event.getUserCreated(), event.getSport());
 				
 				//Senmail to the promotor
-				UserDao creator = UserUtility.getUserByEmail(event.getUserCreated());
-				SendEmail.sendEmailPormotorNewSubcribtion(creator.getEmail(), key, event.getName(), date, event.getAddress(), userEmail);
+				//UserDao creator = UserUtility.getUserByEmail(event.getUserCreated());
+				//SendEmail.sendEmailPormotorNewSubcribtion(creator.getEmail(), key, event.getName(), date, event.getAddress(), userEmail);
 				
 				this.view += "&sub=SUCCESS";
 			

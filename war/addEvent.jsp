@@ -1,24 +1,15 @@
+<%@page import="java.util.SortedMap"%>
+<%@page import="java.util.TreeMap"%>
 <%@page import="fr.nantes.event.util.XmlParser"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 UserService userService = UserServiceFactory.getUserService();
 User oUser = userService.getCurrentUser();
 
-//Get all stadium from Open data nantes
-ArrayList<Map<String, String>> stadiums = new ArrayList<Map<String, String>>();
-
-if (oUser != null) {
-	stadiums = XmlParser.instance.getStadiumFromOpenData("http://data.nantes.fr/api/publication/24440040400129_NM_NM_00024/LOC_EQUIPUB_SPORT_NM_STBL/content/?format=xml");
-	request.setAttribute("stadiums", stadiums);
-} else{
-	response.sendRedirect(userService.createLoginURL(request.getRequestURI()));
-}
-
-	
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -94,10 +85,7 @@ if (oUser != null) {
 									<td>Stadium</td>
 									<td>
 										<select name="stadium">
-											<option value="">Choose a stadium</option>
-											<c:forEach var="Stadium" items="<%=stadiums%>" varStatus="status">
-												<option <c:if test="${Stadium.name == Event.stadium}" > selected="selected"</c:if> value="${status.count}">${Stadium.name}</option>
-											</c:forEach>
+											<%=Utility.getOptionsStadiums("${Event.stadium}")%>
 										</select>
 									</td>
 								</tr>

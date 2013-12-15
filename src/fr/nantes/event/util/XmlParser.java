@@ -12,6 +12,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
@@ -20,8 +23,9 @@ import org.jdom2.input.SAXBuilder;
 public class XmlParser {
 	public final static XmlParser instance = new XmlParser();
 	private XmlParser(){}
+	public String dataUrl = "http://data.nantes.fr/api/publication/24440040400129_NM_NM_00024/LOC_EQUIPUB_SPORT_NM_STBL/content/?format=xml";
 	
-	public ArrayList<Map<String, String>> getStadiumFromOpenData(String dataUrl){
+	public ArrayList<Map<String, String>> getStadiumFromOpenData(){
 		ArrayList<Map<String, String>> data = new ArrayList<Map<String,String>>();
 		Element dataElem = getFirstElement(dataUrl);
 		List listEtudiants = dataElem.getChildren("element");
@@ -55,6 +59,45 @@ public class XmlParser {
            	stadium.put("longitude", longitude.trim());
            	
            	if(name.length()<=60) data.add(stadium);
+        }
+		return data;
+	}
+	
+	
+	public SortedMap<String, Map<String, String>> getSortedStadiumFromOpenData(){
+		SortedMap<String, Map<String, String>> data = new TreeMap<String, Map<String,String>>();
+		Element dataElem = getFirstElement(dataUrl);
+		List listEtudiants = dataElem.getChildren("element");
+
+        //On crée un Iterator sur notre liste
+        Iterator i = listEtudiants.iterator();
+
+        while(i.hasNext()){
+        	Map<String,String> stadium =new HashMap<String, String>();
+        	Element courant = (Element)i.next();
+           
+        	Element geoElem = courant.getChild("geo");
+        	String name = geoElem.getChild("name").getText();
+        	stadium.put("name", name);
+           	stadium.put("address", courant.getChild("ADRESSE").getText());
+           	stadium.put("categorie", courant.getChild("LIBCATEGORIE").getText());
+
+           	// get the geolocalisation data in this form: [ 47.1929657069178 , -1.53691739665354]
+           	String latLong = courant.getChild("_l").getText();
+           	
+           	// Delete the "[" and "]" to obtain this : 47.1929657069178 , -1.53691739665354
+           	latLong = latLong.replaceAll("\\[", "").replaceAll("\\]", "");
+           	
+           	// Split 47.1929657069178 , -1.53691739665354 in a table
+           	String[] tabLatLong = latLong.split("\\,", -1);
+           	
+           	String latitude = tabLatLong.length>=1 ? tabLatLong[0] : "";
+           	String longitude = tabLatLong.length>=2 ? tabLatLong[1] : "";
+           	
+           	stadium.put("latitude", latitude.trim());
+           	stadium.put("longitude", longitude.trim());
+           	
+           	if(name.length()<=60) data.put(name, stadium);
         }
 		return data;
 	}
