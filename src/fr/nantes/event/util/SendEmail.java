@@ -160,7 +160,7 @@ public final class SendEmail {
 	public static boolean sendEmailNewUser(String email, String nickname){
 		String subject = "Nantes Events: Firts Connection";
 		
-		String message = "Hello <b>"+nickname+"</b>!,<br>You are subscribed in our system, <a href='"+Initialization.httpPath+"'><b>"+Initialization.httpPath+"</b></a><br><br>";
+		String message = "Hello <b>"+nickname+"</b>!,<br>You are subscribed in our system, <a href='http://.nantes-events.appspot.com'><b>nantes-events</b></a><br><br>";
 		message += "You will receive notifications for new events<br>Thanks you! See you soon.";
 		message += "<br><br><br><span style='text-size:9px; color:red;'>This an automatic message, Please do not response it</span>";
 		
