@@ -3,25 +3,9 @@ package fr.nantes.event.util;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.SortedMap;
 import java.util.TreeMap;
-
-import javax.jdo.PersistenceManager;
-import javax.jdo.Query;
-
-import com.google.appengine.api.datastore.Key;
-import com.google.appengine.api.datastore.KeyFactory;
-
-import fr.nantes.event.bean.EventBean;
-import fr.nantes.event.dao.EventDao;
-import fr.nantes.event.dao.GuestDao;
-import fr.nantes.event.dao.UserDao;
 
 public final class Utility {
 

@@ -21,11 +21,6 @@ public final class  Util {
 	}
 	
 	
-	
-	public static String sendMailUsers(){
-		return "Malaba Madiba";
-	}
-	
 	public final double convertToDouble(String string){
 		try{
 			return Double.parseDouble(string);

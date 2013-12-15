@@ -13,6 +13,8 @@
 	if (UserServiceFactory.getUserService().getCurrentUser() != null) {%>
 		<li><a href="myEspace.jsp">My Space</a></li>
 		<li><a href="#" onclick="window.location.href='<%=UserServiceFactory.getUserService().createLogoutURL("/")%>'">Logout</a></li>
+		<li><a href="https://github.com/malaba-alma1/web-Application" target="_blank"><b style="color: blue;">Sources Code</b></a></li>
+		<li><a href="/images/rapport_BA-Mamadou-Lamine.pdf"><b style="color: blue;">Project Report</b></a></li>
 	<%} else{%>
 		<li><a href="#" onclick="window.location.href='<%=UserServiceFactory.getUserService().createLoginURL(request.getRequestURI())%>'">Login</a></li>
 	<%}
