@@ -80,11 +80,11 @@ public final class UserUtility {
 	}
 
 
-	public static UserDao getUserByEmail(String nickname){
+	public static UserDao getUserByEmail(String email){
 		UserDao userDao = null;
-		String req = "nickname == nickname";
+		String req = "email == email";
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("nickname", nickname);
+		params.put("email", email);
 		List<UserDao> users = new ArrayList<UserDao>();
 		
 		PersistenceManager pManager = null;

@@ -177,8 +177,8 @@ public class Event extends Controller{
 				SendEmail.sendEmailSubcribtion(userEmail, key, event.getName(), date, event.getAddress(), event.getStadium(), event.getUserCreated(), event.getSport());
 				
 				//Senmail to the promotor
-				//UserDao creator = UserUtility.getUserByEmail(event.getUserCreated());
-				//SendEmail.sendEmailPormotorNewSubcribtion(creator.getEmail(), key, event.getName(), date, event.getAddress(), userEmail);
+				UserDao creator = UserUtility.getUserByEmail(event.getUserCreated());
+				if(creator != null && creator.getEmail().contains("@")) SendEmail.sendEmailPormotorNewSubcribtion(creator.getEmail(), key, event.getName(), date, event.getAddress(), userEmail);
 				
 				this.view += "&sub=SUCCESS";
 			
