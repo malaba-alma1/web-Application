@@ -94,6 +94,7 @@ public final class Utility {
 	
 	public static SortedMap<String, String> getSports(){
 		SortedMap<String, String> allSports = new TreeMap<String, String>();
+		allSports.put("athletics", "Athletics");
 		allSports.put("baseball", "Baseball");
 		allSports.put("basketball", "Basketball");
 		allSports.put("bowling", "Bowling");
@@ -101,8 +102,12 @@ public final class Utility {
 		allSports.put("cycling", "Cycling");
 		allSports.put("football", "Football");
 		allSports.put("golf", "Golf");
-		allSports.put("handball", "Handball");	
+		allSports.put("handball", "Handball");
+		allSports.put("hockey", "Hockey");
+		allSports.put("judo", "Judo");
+		allSports.put("karate", "Karate");
 		allSports.put("rugby", "Rugby");
+		allSports.put("sky", "sky");
 		allSports.put("swimming", "Swimming");
 		allSports.put("tennis", "Tennis");
 		allSports.put("volleyball", "Volleyball");

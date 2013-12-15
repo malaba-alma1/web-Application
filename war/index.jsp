@@ -161,7 +161,7 @@ $("#map-canvas").width(w_main+"px").height("300").css("border-radius", "10px");
 						
 						<table cellpadding="0" cellspacing="0" border="0" class="display table-data" id="table-data" width="98%" style="font-size:11px;">
 							<thead>
-							<tr> <th>Date</th> <th>Event</th> <th>Registered</th> <th>Promotor</th> <th></th> </tr>
+							<tr> <th></th> <th>Date</th> <th>Event</th> <th>Registered</th> <th>Promotor</th> <th></th> </tr>
 							</thead>
 							
 							<tbody>
@@ -172,6 +172,9 @@ $("#map-canvas").width(w_main+"px").height("300").css("border-radius", "10px");
 									String keytoString = com.google.appengine.api.datastore.KeyFactory.keyToString((com.google.appengine.api.datastore.Key)request.getAttribute("key"));
 								 %>
 								<tr>
+									<td>
+										<img alt="${event.sport} symbol" title="${event.sport}" src="/images/sport/${event.sport}.png" width="24" height="24">
+									</td>
 									<td><%=Utility.getDateToString((Date)request.getAttribute("date"), "MM/dd/yyyy HH:mm") %></td>
 									<td>
 										<a href="detailsEvent.jsp?key=<%=keytoString%>">
